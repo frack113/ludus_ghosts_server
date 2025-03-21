@@ -1,0 +1,10 @@
+---
+- name: Install Docker on Ubuntu
+  ansible.builtin.include_tasks:
+    file: docker_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install Docker on Debian 
+  ansible.builtin.include_tasks:
+    file: docker_debian.yml
+  when: ansible_distribution == 'Debian'

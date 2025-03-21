@@ -1,0 +1,86 @@
+# docker-compose up -d
+# -f compose-api.yml (if you want a custom file)
+
+networks:
+  ghosts-network:
+    driver: bridge
+services:
+  ghostsui:
+    image: dustinupdyke/ghosts-ui
+    container_name: ghosts-ui
+    ports:
+      - '8080:8080'
+    networks:
+      - ghosts-network
+    environment:
+      GHOSTS_API_URL: http://ghosts-api:5000
+
+  postgres:
+    image: postgres
+    container_name: ghosts-postgres
+    environment:
+      POSTGRES_DB: ghosts
+      POSTGRES_USER: ghosts
+      POSTGRES_PASSWORD: scotty@1
+    volumes:
+      - ./_db:/var/lib/postgresql/data
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '5'
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ghosts']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ghosts-network
+    restart: always
+  
+  ghosts-api:
+    image: dustinupdyke/ghosts:latest
+    container_name: ghosts-api
+    depends_on:
+      - postgres
+    ports:
+      - '5000:5000'
+    networks:
+      - ghosts-network
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    container_name: ghosts-grafana
+    depends_on:
+      - postgres
+    ports:
+      - '3000:3000'
+    networks:
+      - ghosts-network
+    restart: always
+    volumes:
+      - ./_g:/var/lib/grafana
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    command: serve
+    networks:
+      - ghosts-network
+
+  shadows:
+    image: dustinupdyke/ghosts-shadows
+    container_name: shadows
+    ports:
+      - "5900:5900"
+      - "7860:7860"
+    environment:
+      - GHOSTS_OLLAMA_URL=http://ollama:11434
+    networks:
+      - ghosts-network
+    depends_on:
+      - ollama

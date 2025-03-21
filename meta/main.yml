@@ -1,0 +1,24 @@
+---
+dependencies: []
+
+galaxy_info:
+  role_name: ludus_ghosts_server
+  author: frack113
+  description: An Ansible Role that installs GHOSTS server on Linux
+  company: freelance
+  license: GPLv3
+  min_ansible_version: "2.10"
+  platforms:
+    # Modify the platforms here as required
+    # This example includes a lot, see https://github.com/ansible/ansible-lint/blob/main/src/ansiblelint/schemas/meta.json for all possibilities
+    - name: Debian
+      versions:
+        - bookworm
+    - name: Ubuntu
+      versions:
+        - noble
+  galaxy_tags:
+    - GHOSTS
+    - purple
+
+collections: [community.docker,community.grafana] # Add any collections needed here

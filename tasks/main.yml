@@ -1,0 +1,13 @@
+---
+# https://cmu-sei.github.io/GHOSTS/quickstart/
+
+# need to check if already present
+- name: Install Docker
+  ansible.builtin.include_tasks:
+    file: install_docker.yml
+
+# Check if ghosts already installed
+- name: Install GHOSTS
+  ansible.builtin.include_tasks:
+    file: install_ghosts.yml
+
