@@ -93,3 +93,8 @@
     - 'GHOSTS-5-group-default-Grafana-dashboard.json'
     - 'GHOSTS-default-Grafana-dashboard.json'
     - 'GHOSTS-group-Grafana-dashboard.json'
+
+- name: Touch /opt/ghosts/install.finish
+  ansible.builtin.file:
+    path: /opt/ghosts/install.finish
+    state: touch
