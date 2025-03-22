@@ -1,11 +1,11 @@
-# Ansible Role: Caldera Server
+# Ansible Role: Ghosts Server
 
 An Ansible Role that installs [GHOSTS Server](https://github.com/cmu-sei/GHOSTS) on linux .
 
 ## Requirements
 
 - Linux server
-  - Debian 12 WIP
+  - Debian 12
   - Ubuntu 24 LTS
 - Internet connection
 - docker images are 12GB
