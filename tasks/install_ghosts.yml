@@ -32,6 +32,20 @@
   community.docker.docker_compose_v2:
     project_src: /opt/ghosts
     state: present
+    wait: true
+    wait_timeout: 120
+
+- name: Wait until grafana API HTTP status is 200
+  uri:
+    url: 'http://localhost:3000/api/health'
+    return_content: yes
+    validate_certs: no
+    status_code:
+      - 200
+  until: uri_output.status == 200
+  retries: 24 # Retries for 24 * 5 seconds = 120 seconds = 2 minutes
+  delay: 5 # Every 5 seconds
+  register: uri_output
 
 - name: Grafane Create postgres datasource
   community.grafana.grafana_datasource:
