@@ -1,34 +1,6 @@
 ---
 
-- name: Create GOHSTS folder
-  ansible.builtin.file:
-    path: /opt/ghosts
-    state: directory
-    mode: '0755'
-
-- name: Create postgresql data folder
-  ansible.builtin.file:
-    path: /opt/ghosts/_db
-    state: directory
-    owner: 999
-
-# https://community.grafana.com/t/config-is-not-readable-using-puid-472-and-pgid-0/76566
-- name: Create graphana data folder
-  ansible.builtin.file:
-    path: /opt/ghosts/_g
-    state: directory
-    owner: 472
-
-- name: Copy docker compose file
-  ansible.builtin.copy:
-    src: docker-compose.yml
-    dest: /opt/ghosts/docker-compose.yml
-
-- name: Pull images
-  community.docker.docker_compose_v2_pull:
-    project_src: /opt/ghosts
-
-- name: start ghosts
+- name: start ghosts dockers
   community.docker.docker_compose_v2:
     project_src: /opt/ghosts
     state: present
@@ -64,21 +36,6 @@
     additional_secure_json_data:
       password: 'scotty@1'
 
-- name: Create Grafana folder
-  file: 
-    path: /opt/ghosts/dashboard
-    state: directory
-
-- name: Copy Grafana Dashboard
-  ansible.builtin.copy:
-    src: "{{item}}"
-    dest: "/opt/ghosts/dashboard/{{item}}"
-  loop:
-    - 'GHOSTS-5-default-Grafana-dashboard.json'
-    - 'GHOSTS-5-group-default-Grafana-dashboard.json'
-    - 'GHOSTS-default-Grafana-dashboard.json'
-    - 'GHOSTS-group-Grafana-dashboard.json'
-
 - name: Import Grafana dashboard 
   community.grafana.grafana_dashboard:
     grafana_url: "http://localhost:3000"
@@ -94,7 +51,7 @@
     - 'GHOSTS-default-Grafana-dashboard.json'
     - 'GHOSTS-group-Grafana-dashboard.json'
 
-- name: Touch /opt/ghosts/install.finish
+- name: Touch /opt/ghosts/ghosts.finish
   ansible.builtin.file:
-    path: /opt/ghosts/install.finish
+    path: /opt/ghosts/ghosts.finish
     state: touch

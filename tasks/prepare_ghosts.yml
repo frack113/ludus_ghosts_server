@@ -1,0 +1,47 @@
+---
+- name: Create GOHSTS folder
+  ansible.builtin.file:
+    path: /opt/ghosts
+    state: directory
+    mode: '0755'
+
+- name: Create postgresql data folder
+  ansible.builtin.file:
+    path: /opt/ghosts/_db
+    state: directory
+    owner: 999
+
+- name: Create graphana data folder
+  ansible.builtin.file:
+    path: /opt/ghosts/_g
+    state: directory
+    owner: 472
+
+- name: Create pandora data folder
+  ansible.builtin.unarchive:
+    src: pandora.tar.gz
+    dest: /opt/ghosts
+
+- name: Create grafana dashboard folder
+  file: 
+    path: /opt/ghosts/dashboard
+    state: directory
+
+- name: Copy grafana dashboard
+  ansible.builtin.copy:
+    src: "{{item}}"
+    dest: "/opt/ghosts/dashboard/{{item}}"
+  loop:
+    - 'GHOSTS-5-default-Grafana-dashboard.json'
+    - 'GHOSTS-5-group-default-Grafana-dashboard.json'
+    - 'GHOSTS-default-Grafana-dashboard.json'
+    - 'GHOSTS-group-Grafana-dashboard.json'
+
+- name: Copy docker-compose file
+  ansible.builtin.copy:
+    src: docker-compose.yml
+    dest: /opt/ghosts/docker-compose.yml
+
+- name: Pull images
+  community.docker.docker_compose_v2_pull:
+    project_src: /opt/ghosts

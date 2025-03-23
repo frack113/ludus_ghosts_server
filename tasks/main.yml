@@ -1,25 +1,11 @@
 ---
+# Install GHOSTS
 # https://cmu-sei.github.io/GHOSTS/quickstart/
+# 
+# Check only Ubuntu 24 and Debian 12
 
-- name: Check Docker
-  block:
-    - name: Get info on docker host
-      community.docker.docker_host_info:
-      register: result
-    - name: Print a message
-      ansible.builtin.debug:
-        msg: 'docker is fine'
-  rescue:
-    - name: Fix Missing Docker
-      ansible.builtin.include_tasks:
-        file: install_docker.yml
-
-- name: Check that /opt/ghosts/install.finish exists
-  stat:
-    path: /opt/ghosts/install.finish
-  register: ghosts_result
-
-- name: Install GHOSTS
+- name: Install Ghosts
   ansible.builtin.include_tasks:
-    file: install_ghosts.yml
-  when: not ghosts_result.stat.exists
+    file: ghosts.yml
+  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
+

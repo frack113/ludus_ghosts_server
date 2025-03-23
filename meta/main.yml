@@ -20,5 +20,6 @@ galaxy_info:
   galaxy_tags:
     - GHOSTS
     - purple
+    - ludus
 
 collections: [community.docker,community.grafana] # Add any collections needed here
