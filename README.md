@@ -1,6 +1,8 @@
 # Ansible Role: Ghosts Server
 
-An Ansible Role that installs [GHOSTS Server](https://github.com/cmu-sei/GHOSTS) on linux .
+An Ansible Role that installs [GHOSTS Server](https://github.com/cmu-sei/GHOSTS) on linux.
+
+Based on the 8.2 version information
 
 ## Requirements
 
@@ -22,6 +24,26 @@ Ansible :
 
 - community.docker
 - community.grafana
+
+## Ports
+
+Ghosts UI (<https://cmu-sei.github.io/GHOSTS/core/ui/>):
+
+- 8080
+
+Ghosts API (<https://cmu-sei.github.io/GHOSTS/core/api/>)
+
+- 5000
+- 3000 grafana
+
+shadows (<https://cmu-sei.github.io/GHOSTS/shadows/>):
+
+- 5900 API
+- 7860 UI
+
+pandora (<https://cmu-sei.github.io/GHOSTS/content/>):
+
+- 80
 
 ## Example Playbook
 

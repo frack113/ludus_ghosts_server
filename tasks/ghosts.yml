@@ -1,0 +1,36 @@
+---
+
+- name: Check Docker
+  block:
+    - name: Get info on docker host
+      community.docker.docker_host_info:
+      register: result
+    - name: Print a message
+      ansible.builtin.debug:
+        msg: 'docker is fine'
+  rescue:
+    - name: Install Docker on Ubuntu
+      ansible.builtin.include_tasks:
+        file: docker_ubuntu.yml
+      when: ansible_distribution == 'Ubuntu'
+    - name: Install Docker on Debian 
+      ansible.builtin.include_tasks:
+        file: docker_debian.yml
+      when: ansible_distribution == 'Debian'
+
+
+- name: Check that /opt/ghosts/ghosts.finish exists
+  stat:
+    path: /opt/ghosts/ghosts.finish
+  register: ghosts_result
+
+- name: Prepare GHOSTS files
+  ansible.builtin.include_tasks:
+    file: prepare_ghosts.yml
+  when: not ghosts_result.stat.exists
+
+- name: Install GHOSTS
+  ansible.builtin.include_tasks:
+    file: install_ghosts.yml
+  when: not ghosts_result.stat.exists
+
