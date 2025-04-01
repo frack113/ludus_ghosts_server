@@ -12,14 +12,10 @@ galaxy_info:
     # Modify the platforms here as required
     # This example includes a lot, see https://github.com/ansible/ansible-lint/blob/main/src/ansiblelint/schemas/meta.json for all possibilities
     - name: Debian
-      versions:
-        - bookworm
     - name: Ubuntu
-      versions:
-        - noble
   galaxy_tags:
+    - ludus
     - GHOSTS
     - purple
-    - ludus
 
 collections: [community.docker,community.grafana] # Add any collections needed here

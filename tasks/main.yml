@@ -1,11 +1,23 @@
 ---
+#
 # Install GHOSTS
 # https://cmu-sei.github.io/GHOSTS/quickstart/
 # 
-# Check only Ubuntu 24 and Debian 12
 
-- name: Install Ghosts
-  ansible.builtin.include_tasks:
-    file: ghosts.yml
-  when: ansible_distribution == 'Ubuntu' or ansible_distribution == 'Debian'
 
+- name: Check that /opt/ghosts/ghosts.finish exists
+  stat:
+    path: /opt/ghosts/ghosts.finish
+  register: ghosts_result
+
+- name: Install GHOSTS
+  block:
+    - name: Prepare files
+      ansible.builtin.include_tasks:
+        file: 1-prepare-ghosts.yml
+
+    - name: Install files
+      ansible.builtin.include_tasks:
+        file: 2-install-ghosts.yml
+
+  when: not ghosts_result.stat.exists

@@ -6,11 +6,10 @@ Based on the 8.2 version information
 
 ## Requirements
 
-- Linux server
-  - Debian 12
-  - Ubuntu 24 LTS
-- Internet connection
-- docker images are 12GB
+- Linux server with docker engine
+- Internet connection (docker images are 12GB)
+
+You can use the [geerlingguy.docker](https://galaxy.ansible.com/ui/standalone/roles/geerlingguy/docker/) role to install docker.
 
 ## Role Variables
 
@@ -60,6 +59,7 @@ ludus:
     cpus: 4
     linux: true
     roles:
+      - geerlingguy.docker
       - frack113.ludus_ghosts_server
 ```
 
