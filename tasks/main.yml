@@ -4,6 +4,26 @@
 # https://cmu-sei.github.io/GHOSTS/quickstart/
 # 
 
+# https://github.com/badsectorlabs/ludus_elastic_container/blob/c5955df6806074b3d74c24f3ce6a6a02f1c21eb2/tasks/main.yml
+- name: Ensure Docker is installed
+  block:
+    - name: Check if Docker is installed
+      ansible.builtin.command: which docker
+      register: docker_installed
+      ignore_errors: true
+      changed_when: false
+
+    - name: Install Docker if not installed
+      ansible.builtin.package:
+        name: docker
+        state: present
+      when: docker_installed.rc != 0
+
+    - name: Ensure Docker service is running
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
 
 - name: Check that /opt/ghosts/ghosts.finish exists
   stat:

@@ -6,10 +6,8 @@ Based on the 8.2 version information
 
 ## Requirements
 
-- Linux server with docker engine
+- Linux server
 - Internet connection (docker images are 12GB)
-
-You can use the [geerlingguy.docker](https://galaxy.ansible.com/ui/standalone/roles/geerlingguy/docker/) role to install docker.
 
 ## Role Variables
 
@@ -23,6 +21,7 @@ Ansible :
 
 - community.docker
 - community.grafana
+- geerlingguy.docker
 
 ## Ports
 
@@ -59,7 +58,6 @@ ludus:
     cpus: 4
     linux: true
     roles:
-      - geerlingguy.docker
       - frack113.ludus_ghosts_server
 ```
 
