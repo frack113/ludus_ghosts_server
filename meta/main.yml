@@ -1,7 +1,6 @@
 ---
 dependencies:
   - role: geerlingguy.docker
-    version: "7.4.7"
 
 galaxy_info:
   role_name: ludus_ghosts_server
