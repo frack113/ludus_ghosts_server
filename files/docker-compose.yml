@@ -24,7 +24,7 @@ services:
       POSTGRES_USER: ghosts
       POSTGRES_PASSWORD: scotty@1
     volumes:
-      - ./_db:/var/lib/postgresql/data
+      - ./_db:/var/lib/postgresql
     logging:
       options:
         max-size: '100m'
