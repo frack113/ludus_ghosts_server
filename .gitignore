@@ -36,6 +36,7 @@ Temporary Items
 
 ### VisualStudioCode ###
 .vscode
+.clinerules/
 
 # Local History for Visual Studio Code
 .history/
