@@ -13,7 +13,15 @@ Based on the 8.2 version information
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-None
+- `LUDUS_GHOST_SERVER_UI_TAG`: Docker image tag for Ghosts Server UI (default: "0.0.7")
+- `LUDUS_GHOST_GHOST_TAG`: Docker image tag for Ghosts core (default: "v8.3.1")
+- `LUDUS_GHOST_SHADOWS_TAG`: Docker image tag for Shadows (default: "latest")
+- `LUDUS_GHOST_PANDORA_TAG`: Docker image tag for Pandora (default: "2.0.0.0")
+- `LUDUS_GHOST_OLLAMA_TAG`: Docker image tag for Ollama (default: "latest")
+- `LUDUS_GHOST_POSTGRES_TAG`: Docker image tag for PostgreSQL (default: "13")
+- `LUDUS_GHOST_GRAFANA_TAG`: Docker image tag for Grafana (default: "9.5.7")
+- `LUDUS_GHOST_NGINX_TAG`: Docker image tag for Nginx (default: "1.25.3")
+
 
 ## Dependencies
 

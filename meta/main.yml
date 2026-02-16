@@ -19,4 +19,4 @@ galaxy_info:
     - GHOSTS
     - purple
 
-collections: [community.docker,community.grafana] # Add any collections needed here
+collections: [community.docker,community.grafana]
